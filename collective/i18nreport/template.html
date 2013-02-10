@@ -8,6 +8,26 @@
             body {
             margin: 2em;
             }
+
+            td.bold {
+            font-weight: bold;
+            }
+
+            td.red {
+            background-color: #f2dede;
+            }
+
+            td.yellow {
+            background-color: #faf2cc;
+            }
+
+            td.blue {
+            background-color: #c4e3f3;
+            }
+
+            td.green {
+            background-color: #d0e9c6;
+            }
         </style>
 
     </head>
@@ -27,7 +47,7 @@
                 % for row in rows:
                 <tr>
                     % for cell in row:
-                    <td>${cell}</td>
+                    <td class="${cell.get('classes', '')}">${cell.get('content', '')}</td>
                     % endfor
                 </tr>
                 % endfor

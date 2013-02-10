@@ -18,14 +18,32 @@ def html_formatter(data):
 
     rows = []
     for lang_code in lang_codes:
-        row = [languages.get(lang_code, {}).get('name', lang_code)]
+        row = [{'content': languages.get(lang_code, {}).get('name', lang_code),
+                'classes': 'bold'}]
 
         for domain in domains:
             value = data.get(domain, {}).get(lang_code, None)
+
             if value:
-                row.append('%s%%' % value)
+                classes = ''
+
+                if value <= 50:
+                    classes =  'red'
+
+                elif value <= 80:
+                    classes =  'yellow'
+
+                elif value <= 99:
+                    classes = 'blue'
+
+                else:
+                    classes =  'green'
+
+                row.append({'content': '%s%%' % value,
+                            'classes': classes})
             else:
-                row.append('-')
+                row.append({'content': '-',
+                            'classes': 'red'})
 
         rows.append(row)
 
