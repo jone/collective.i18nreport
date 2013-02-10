@@ -30,6 +30,7 @@ setup(
     install_requires=[
         'setuptools',
         'i18ndude',
+        'plone.i18n',
         ],
 
     extras_require={
