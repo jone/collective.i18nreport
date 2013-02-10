@@ -2,7 +2,7 @@
  collective.i18nreport
 =======================
 
-Creates a coverage report of translations.
+Creates a coverage report of internationalizations.
 
 
 Usage
