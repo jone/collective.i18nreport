@@ -30,9 +30,6 @@ Or you can checkout the repository and use it from source:
     $ bin/buildout
     $ bin/i18nreport
 
-
-::
-
     usage: i18nreport [-h] [--path PATH] [--format FORMAT] [--all-languages]
 
     optional arguments:
