@@ -17,9 +17,10 @@ msgstr ""
 
 #: ../profiles/default/workflows/comment_review_workflow/definition.xml
 msgid "A simple review workflow for comments"
-msgstr "Een eenvoudige herzienings werkstroom voor reacties"
+msgstr ""
 
 #: ../profiles/default/workflows/comment_review_workflow/definition.xml
+#, fuzzy
 msgid "Approve"
 msgstr "Goedkeuren"
 
