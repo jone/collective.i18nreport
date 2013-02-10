@@ -4,12 +4,13 @@ from collective.i18nreport.tests.helpers import make_relative
 from collective.i18nreport.tests.helpers import make_relative_recursively
 from unittest2 import TestCase
 import os
+import subprocess
 
 
 TEST_EXAMPLE_PATH = os.path.join(os.path.dirname(__file__), 'example')
 
 
-class TestDetectDomains(TestCase):
+class TestUtils(TestCase):
 
     def test_find_domains_in_path(self):
         self.maxDiff = None
@@ -117,3 +118,13 @@ class TestDetectDomains(TestCase):
                 raise ValueError()
 
         self.assertFalse(os.path.exists(path))
+
+    def test_check_output__returns_output(self):
+        self.assertEqual(utils.check_output('echo "foo\nbar"'), 'foo\nbar\n')
+
+    def test_check_output__raises_on_failure(self):
+        with self.assertRaises(subprocess.CalledProcessError) as cm:
+            utils.check_output('exit 1')
+
+        self.assertEqual(str(cm.exception),
+                         "Command 'exit 1' returned non-zero exit status 1")
