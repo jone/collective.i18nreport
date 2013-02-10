@@ -6,14 +6,18 @@ import tempfile
 
 
 def find_domains_in_path(path):
-    potfiles = {}
+    domains = {}
 
     for potfile in find_files_in_path('pot', path):
-        potfiles[potfile] = {'domain': get_domain_of_potfile(potfile),
-                             'languages': get_pofiles_for_potfile(potfile),
-                             'messages': count_messages(potfile)}
+        domain = get_domain_of_potfile(potfile)
+        if domain not in domains:
+            domains[domain] = {'potfiles': [],
+                               'languages': {}}
 
-    return potfiles
+        domains[domain]['potfiles'].append(potfile)
+        get_pofiles_for_potfile(potfile, domains[domain]['languages'])
+
+    return domains
 
 
 def find_files_in_path(extension, directory):
@@ -85,28 +89,23 @@ def get_definition_type(path):
             'File %s is neither in an "i18n" or in a "locales" directory.' % path)
 
 
-def get_pofiles_for_potfile(potfile):
+def get_pofiles_for_potfile(potfile, result):
     type_ = get_definition_type(potfile)
     directory = os.path.dirname(potfile)
     domain = get_domain_of_potfile(potfile)
 
-    languages = {}
+    for pofile in find_files_in_path('po', directory):
+        if type_ == 'i18n' and not os.path.basename(pofile).startswith(domain):
+            continue
 
-    if type_ == 'i18n':
-        for pofile in find_files_in_path('po', directory):
-            if not os.path.basename(pofile).startswith(domain):
-                continue
+        elif type_ == 'locales' and os.path.basename(pofile) != '%s.po' % domain:
+            continue
 
-            languages[get_language_of_pofile(pofile)] = pofile
+        lang = get_language_of_pofile(pofile)
+        if lang not in result:
+            result[lang] = []
 
-    elif type_ == 'locales':
-        for pofile in find_files_in_path('po', directory):
-            if os.path.basename(pofile) != '%s.po' % domain:
-                continue
-
-            languages[get_language_of_pofile(pofile)] = pofile
-
-    return languages
+        result[lang].append(pofile)
 
 
 def count_messages(path):

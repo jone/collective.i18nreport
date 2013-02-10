@@ -30,6 +30,10 @@ def make_relative_recursively(data):
 
         return new
 
+    if isinstance(data, list):
+        new = [make_relative_recursively(item) for item in data]
+        return list(sorted(new))
+
     elif data is None or isinstance(data, int):
         return data
 

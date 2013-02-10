@@ -16,23 +16,17 @@ class TestDetectDomains(TestCase):
         self.assertEqual(
             make_relative_recursively(utils.find_domains_in_path(TEST_EXAMPLE_PATH)),
 
-            {'foo/i18n/plone.pot': {
-                    'domain': 'plone',
-                    'messages': 25,
-                    'languages':{
-                        'nl': 'foo/i18n/plone-nl.po'}},
-
-             'foo/locales/locales/linguaplone.pot': {
-                    'domain': 'linguaplone',
-                    'messages': 3,
+            {'plone': {
+                    'potfiles': ['foo/i18n/plone.pot',
+                                 'foo/locales/locales/plone.pot'],
                     'languages': {
-                        'nl': 'foo/locales/locales/nl/LC_MESSAGES/linguaplone.po'}},
+                        'nl': ['foo/i18n/plone-nl.po',
+                               'foo/locales/locales/nl/LC_MESSAGES/plone.po']}},
 
-             'foo/locales/locales/plone.pot': {
-                    'domain': 'plone',
-                    'messages': 4l,
+             'linguaplone': {
+                    'potfiles': ['foo/locales/locales/linguaplone.pot'],
                     'languages': {
-                        'nl': 'foo/locales/locales/nl/LC_MESSAGES/plone.po'}},
+                        'nl': ['foo/locales/locales/nl/LC_MESSAGES/linguaplone.po']}},
 
              })
 
@@ -76,16 +70,26 @@ class TestDetectDomains(TestCase):
             utils.get_definition_type('foo')
 
     def test_get_pofiles_for_potfile__i18n(self):
-        result = utils.get_pofiles_for_potfile(make_absolute('foo/i18n/plone.pot'))
+        result = {}
+        utils.get_pofiles_for_potfile(make_absolute('foo/i18n/plone.pot'), result)
         result = make_relative_recursively(result)
 
-        self.assertEqual(result, {'nl': 'foo/i18n/plone-nl.po'})
+        self.assertEqual(result, {'nl': ['foo/i18n/plone-nl.po']})
 
     def test_get_pofiles_for_potfile__locales(self):
-        result = utils.get_pofiles_for_potfile(make_absolute('foo/locales/locales/plone.pot'))
+        result = {}
+        utils.get_pofiles_for_potfile(make_absolute('foo/locales/locales/plone.pot'), result)
         result = make_relative_recursively(result)
 
-        self.assertEqual(result, {'nl': 'foo/locales/locales/nl/LC_MESSAGES/plone.po'})
+        self.assertEqual(result, {'nl': ['foo/locales/locales/nl/LC_MESSAGES/plone.po']})
+
+    def test_get_pofiles_for_potfile__extends(self):
+        result = {'nl': ['something.po']}
+        utils.get_pofiles_for_potfile(make_absolute('foo/locales/locales/plone.pot'), result)
+        result = make_relative_recursively(result)
+
+        self.assertEqual(result, {'nl': ['foo/locales/locales/nl/LC_MESSAGES/plone.po',
+                                         'something.po']})
 
     def test_count_msgids(self):
         self.assertEqual(
