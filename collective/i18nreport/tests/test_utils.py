@@ -18,16 +18,19 @@ class TestDetectDomains(TestCase):
 
             {'foo/i18n/plone.pot': {
                     'domain': 'plone',
+                    'messages': 25,
                     'languages':{
                         'nl': 'foo/i18n/plone-nl.po'}},
 
              'foo/locales/locales/linguaplone.pot': {
                     'domain': 'linguaplone',
+                    'messages': 3,
                     'languages': {
                         'nl': 'foo/locales/locales/nl/LC_MESSAGES/linguaplone.po'}},
 
              'foo/locales/locales/plone.pot': {
                     'domain': 'plone',
+                    'messages': 4l,
                     'languages': {
                         'nl': 'foo/locales/locales/nl/LC_MESSAGES/plone.po'}},
 
@@ -83,3 +86,16 @@ class TestDetectDomains(TestCase):
         result = make_relative_recursively(result)
 
         self.assertEqual(result, {'nl': 'foo/locales/locales/nl/LC_MESSAGES/plone.po'})
+
+    def test_count_msgids(self):
+        self.assertEqual(
+            utils.count_messages(make_absolute('foo/locales/locales/linguaplone.pot')),
+            3)
+
+        self.assertEqual(
+            utils.count_messages(make_absolute('foo/locales/locales/plone.pot')),
+            4)
+
+        self.assertEqual(
+            utils.count_messages(make_absolute('foo/i18n/plone.pot')),
+            25)

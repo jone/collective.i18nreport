@@ -8,7 +8,8 @@ def find_domains_in_path(path):
 
     for potfile in find_files_in_path('pot', path):
         potfiles[potfile] = {'domain': get_domain_of_potfile(potfile),
-                             'languages': get_pofiles_for_potfile(potfile)}
+                             'languages': get_pofiles_for_potfile(potfile),
+                             'messages': count_messages(potfile)}
 
     return potfiles
 
@@ -104,3 +105,13 @@ def get_pofiles_for_potfile(potfile):
             languages[get_language_of_pofile(pofile)] = pofile
 
     return languages
+
+
+def count_messages(path):
+    """Counts the amount of messages in a po-file or pot-file.
+    """
+
+    msgids = len(subprocess.check_output('grep -r "msgid" %s' % path, shell=True).splitlines())
+
+    # Subtract one msgid: the first msgid in each file is the "template" definition.
+    return msgids - 1
