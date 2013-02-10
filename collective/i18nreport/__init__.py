@@ -5,7 +5,8 @@ import os
 
 
 FORMATTERS = {
-    'json': formatters.json_formatter}
+    'json': formatters.json_formatter,
+    'html': formatters.html_formatter}
 
 
 @argh.arg('--path', '-p', help='Path to scan for translations (defaults to pwd)')

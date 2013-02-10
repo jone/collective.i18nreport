@@ -32,6 +32,7 @@ setup(
         'i18ndude',
         'argh',
         'plone.i18n',
+        'mako',
         ],
 
     extras_require={
