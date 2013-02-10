@@ -24,7 +24,7 @@ Or you can checkout the repository and use it from source:
 
 .. code:: shell
 
-    $ git clone https://github.com/jone/collective.i18nreport.git
+    $ git clone https://github.com/collective/collective.i18nreport.git
     $ ln -s development.cfg buildout.cfg
     $ python2.7 bootstrap.py
     $ bin/buildout
@@ -38,3 +38,11 @@ Or you can checkout the repository and use it from source:
       --format FORMAT, -f FORMAT
                             json, html
       --all-languages, -a   Show also languages wich are not translated at all
+
+
+Links
+-----
+
+- Main github project repository: https://github.com/collective/collective.i18nreport
+- Issue tracker: https://github.com/collective/collective.i18nreport/issues
+- Package on pypi: http://pypi.python.org/pypi/collective.i18nreport
