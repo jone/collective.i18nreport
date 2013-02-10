@@ -10,7 +10,11 @@ def calculate_coverage_for_path(path, all_languages=False):
     result = {}
 
     for domain, item in find_domains_in_path(path).items():
-        result[domain] = calculate_coverage_for_domain(all_languages=all_languages, **item)
+        coverage = calculate_coverage_for_domain(all_languages=all_languages, **item)
+        if not coverage:
+            continue
+
+        result[domain] = coverage
 
     return result
 
@@ -20,6 +24,9 @@ def calculate_coverage_for_domain(potfiles, languages, all_languages=False):
     the given potfiles / languages.
     """
     pot_catalog = catalog_of_files(potfiles)
+    if not pot_catalog:
+        return None
+
     total = len(pot_catalog.keys())
 
     if all_languages:
@@ -31,6 +38,8 @@ def calculate_coverage_for_domain(potfiles, languages, all_languages=False):
 
     for lang, paths in languages.items():
         lang_catalog = catalog_of_files(paths)
+        if not lang_catalog:
+            continue
 
         translated = 0
         for msgid in pot_catalog.keys():
@@ -55,9 +64,14 @@ def catalog_of_files(paths):
     catalog = None
 
     for path in paths:
-        if not catalog:
-            catalog = MessageCatalog(filename=path)
-        else:
-            catalog.merge(MessageCatalog(filename=path))
+        try:
+            if not catalog:
+                catalog = MessageCatalog(filename=path)
+            else:
+                catalog.merge(MessageCatalog(filename=path))
+
+        except AttributeError:
+            # Skip file - not valid
+            pass
 
     return catalog

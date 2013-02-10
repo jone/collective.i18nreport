@@ -61,8 +61,8 @@ def get_language_of_pofile(path):
     type_ = get_definition_type(path)
 
     if type_ == 'locales':
-        parts = list(reversed(path.split('/')))
-        language = parts[parts.index('locales') - 1]
+        parts = path.split('/')
+        language = parts[-3]
 
     elif type_ == 'i18n':
         language_definitions = subprocess.check_output(
