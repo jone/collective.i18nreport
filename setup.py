@@ -13,7 +13,9 @@ setup(
         open(os.path.join('docs', 'HISTORY.txt')).read(),
 
     classifiers=[
-        "Programming Language :: Python",
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
         ],
 
     keywords='i18n coverage',
