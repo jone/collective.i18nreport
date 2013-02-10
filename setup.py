@@ -19,7 +19,7 @@ setup(
     keywords='i18n coverage',
     author='Jonas Baumann',
     author_email='jone@jone.ch',
-    url='https://github.com/jone/collective.i18nreport',
+    url='https://github.com/collective/collective.i18nreport',
 
     license='GPL2',
     packages=find_packages(exclude=['ez_setup']),
