@@ -1,6 +1,8 @@
 import os.path
 import re
+import shutil
 import subprocess
+import tempfile
 
 
 def find_domains_in_path(path):
@@ -115,3 +117,25 @@ def count_messages(path):
 
     # Subtract one msgid: the first msgid in each file is the "template" definition.
     return msgids - 1
+
+
+class create_tempdir():
+    """Context manager for creating a temporary directory.
+    The directory is deleted automatically when leaving the context managare.
+
+    Example:
+
+    >>> with create_tempdir() as path:
+    ...     do_something(path)
+
+    """
+
+    def __init__(self):
+        self.directory = None
+
+    def __enter__(self):
+        self.directory = tempfile.mkdtemp()
+        return self.directory
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        shutil.rmtree(self.directory, True)

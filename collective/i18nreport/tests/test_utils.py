@@ -99,3 +99,17 @@ class TestDetectDomains(TestCase):
         self.assertEqual(
             utils.count_messages(make_absolute('foo/i18n/plone.pot')),
             25)
+
+    def test_tempdir_context_manager__success(self):
+        with utils.create_tempdir() as path:
+            self.assertTrue(os.path.exists(path))
+            os.mkdir(os.path.join(path, 'foo'))
+
+        self.assertFalse(os.path.exists(path))
+
+    def test_tempdir_context_manager__failure(self):
+        with self.assertRaises(ValueError):
+            with utils.create_tempdir() as path:
+                raise ValueError()
+
+        self.assertFalse(os.path.exists(path))
