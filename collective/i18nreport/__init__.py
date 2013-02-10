@@ -1,14 +1,15 @@
+from collective.i18nreport import formatters
 from collective.i18nreport.coverage import calculate_coverage_for_path
 import argh
-import json
 import os
 
-formatters = {
-    'json': lambda data: json.dumps(data, indent=4)}
+
+FORMATTERS = {
+    'json': formatters.json_formatter}
 
 
 @argh.arg('--path', '-p', help='Path to scan for translations (defaults to pwd)')
-@argh.arg('--format', '-f', help=', '.join(formatters.keys()))
+@argh.arg('--format', '-f', help=', '.join(FORMATTERS.keys()))
 @argh.arg('--all-languages', '-a', help='Show also languages wich are not translated at all')
 def command(path=None, format='json', all_languages=False):
     if path is None:
@@ -16,7 +17,7 @@ def command(path=None, format='json', all_languages=False):
 
     coverage = calculate_coverage_for_path(path, all_languages=all_languages)
 
-    formatter = formatters[format]
+    formatter = FORMATTERS[format]
     return formatter(coverage)
 
 
