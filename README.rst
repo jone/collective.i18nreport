@@ -46,3 +46,4 @@ Links
 - Main github project repository: https://github.com/collective/collective.i18nreport
 - Issue tracker: https://github.com/collective/collective.i18nreport/issues
 - Package on pypi: http://pypi.python.org/pypi/collective.i18nreport
+- Continuous integration: https://jenkins.4teamwork.ch/search?q=collective.i18nreport
