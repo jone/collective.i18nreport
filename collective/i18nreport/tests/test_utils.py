@@ -1,6 +1,5 @@
 from collective.i18nreport import utils
 from collective.i18nreport.tests.helpers import make_absolute
-from collective.i18nreport.tests.helpers import make_relative
 from collective.i18nreport.tests.helpers import make_relative_recursively
 from unittest2 import TestCase
 import os
@@ -32,7 +31,7 @@ class TestUtils(TestCase):
              })
 
     def test_find_files_in_path(self):
-        results = map(make_relative, utils.find_files_in_path('pot', TEST_EXAMPLE_PATH))
+        results = make_relative_recursively(utils.find_files_in_path('pot', TEST_EXAMPLE_PATH))
 
         self.assertEquals(results, ['foo/i18n/plone.pot',
                                     'foo/locales/locales/linguaplone.pot',
