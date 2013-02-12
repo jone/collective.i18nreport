@@ -4,13 +4,15 @@ from plone.i18n.locales.languages import LanguageAvailability
 
 
 def calculate_coverage_for_path(path, all_languages=False):
-    """Calculates the translation coverage for each domain found in the given path.
+    """Calculates the translation coverage for each domain found in
+    the given path.
     """
 
     result = {}
 
     for domain, item in find_domains_in_path(path).items():
-        coverage = calculate_coverage_for_domain(all_languages=all_languages, **item)
+        coverage = calculate_coverage_for_domain(
+            all_languages=all_languages, **item)
         if not coverage:
             continue
 
@@ -44,7 +46,8 @@ def calculate_coverage_for_domain(potfiles, languages, all_languages=False):
         translated = 0
         for msgid in pot_catalog.keys():
             if msgid in lang_catalog and lang_catalog[msgid].msgstr:
-                if not [1 for fuzzy in lang_catalog[msgid].comments if 'fuzzy' in fuzzy]:
+                if not [1 for fuzzy in lang_catalog[msgid].comments
+                        if 'fuzzy' in fuzzy]:
                     translated += 1
 
         percentage = int(translated / (total * 1.0) * 100)

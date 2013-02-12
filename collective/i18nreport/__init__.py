@@ -9,9 +9,12 @@ FORMATTERS = {
     'html': formatters.html_formatter}
 
 
-@argh.arg('--path', '-p', help='Path to scan for translations (defaults to pwd)')
-@argh.arg('--format', '-f', help=', '.join(FORMATTERS.keys()))
-@argh.arg('--all-languages', '-a', help='Show also languages wich are not translated at all')
+@argh.arg('--path', '-p',
+          help='Path to scan for translations (defaults to pwd)')
+@argh.arg('--format', '-f',
+          help=', '.join(FORMATTERS.keys()))
+@argh.arg('--all-languages', '-a',
+          help='Show also languages wich are not translated at all')
 def command(path=None, format='json', all_languages=False):
     if path is None:
         path = os.getcwd()

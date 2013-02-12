@@ -28,16 +28,16 @@ def html_formatter(data):
                 classes = ''
 
                 if value <= 50:
-                    classes =  'red'
+                    classes = 'red'
 
                 elif value <= 80:
-                    classes =  'yellow'
+                    classes = 'yellow'
 
                 elif value <= 99:
                     classes = 'blue'
 
                 else:
-                    classes =  'green'
+                    classes = 'green'
 
                 row.append({'content': '%s%%' % value,
                             'classes': classes})
@@ -50,4 +50,5 @@ def html_formatter(data):
     rows.sort(key=lambda item: item[0])
 
     template_path = os.path.join(os.path.dirname(__file__), 'template.html')
-    return Template(filename=template_path).render(headings=headings, rows=rows)
+    return Template(filename=template_path).render(headings=headings,
+                                                   rows=rows)
