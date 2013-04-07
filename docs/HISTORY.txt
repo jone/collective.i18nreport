@@ -5,7 +5,8 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Eliminate argh dependency since it needs argcomplete. Fixes #1.
+  [jone]
 
 
 1.1 (2013-02-10)

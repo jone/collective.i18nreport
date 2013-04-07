@@ -32,7 +32,6 @@ setup(
     install_requires=[
         'setuptools',
         'i18ndude',
-        'argh',
         'plone.i18n',
         'mako',
         ],

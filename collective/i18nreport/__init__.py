@@ -1,7 +1,8 @@
 from collective.i18nreport import formatters
 from collective.i18nreport.coverage import calculate_coverage_for_path
-import argh
+from optparse import OptionParser
 import os
+import sys
 
 
 FORMATTERS = {
@@ -9,12 +10,6 @@ FORMATTERS = {
     'html': formatters.html_formatter}
 
 
-@argh.arg('--path', '-p',
-          help='Path to scan for translations (defaults to pwd)')
-@argh.arg('--format', '-f',
-          help=', '.join(FORMATTERS.keys()))
-@argh.arg('--all-languages', '-a',
-          help='Show also languages wich are not translated at all')
 def command(path=None, format='json', all_languages=False):
     if path is None:
         path = os.getcwd()
@@ -25,5 +20,38 @@ def command(path=None, format='json', all_languages=False):
     return formatter(coverage)
 
 
+def parse_arguments(argv):
+    usage = 'i18nreport [-h] [--path PATH] [--format FORMAT]' + \
+        ' [--all-languages]'
+
+    parser = OptionParser(usage=usage)
+
+    parser.add_option(
+        '-p', '--path', dest='path',
+        help='Path to scan for translations (defaults to pwd)')
+
+    parser.add_option(
+        '-f', '--format', dest='format',
+        type='choice',
+        help='Formats: %s' % ', '.join(FORMATTERS.keys()),
+        choices=FORMATTERS.keys())
+
+    parser.add_option(
+        '-a', '--all-languages',
+        help='Show also languages wich are not translated at all',
+        action='store_true')
+
+    options, args = parser.parse_args(argv)
+    if len(args) != 0:
+        parser.print_help()
+        sys.exit(1)
+
+    # make a dict of options which are not None
+    options = dict([(key, value) for (key, value) in vars(options).items()
+                    if value is not None])
+
+    return options
+
+
 def main():
-    argh.dispatch_command(command)
+    return command(**parse_arguments(sys.argv[1:]))
