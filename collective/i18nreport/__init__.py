@@ -54,4 +54,5 @@ def parse_arguments(argv):
 
 
 def main():
-    return command(**parse_arguments(sys.argv[1:]))
+    print command(**parse_arguments(sys.argv[1:]))
+    return 0
