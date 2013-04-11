@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2 (unreleased)
+1.2 (2013-04-11)
 ----------------
 
 - Eliminate argh dependency since it needs argcomplete. Fixes #1.
