@@ -28,16 +28,15 @@ Or you can checkout the repository and use it from source:
     $ ln -s development.cfg buildout.cfg
     $ python2.7 bootstrap.py
     $ bin/buildout
-    $ bin/i18nreport
+    $ bin/i18nreport --help
+    Usage: i18nreport [-h] [--path PATH] [--format FORMAT] [--all-languages]
 
-    usage: i18nreport [-h] [--path PATH] [--format FORMAT] [--all-languages]
-
-    optional arguments:
+    Options:
       -h, --help            show this help message and exit
-      --path PATH, -p PATH  Path to scan for translations (defaults to pwd)
-      --format FORMAT, -f FORMAT
-                            json, html
-      --all-languages, -a   Show also languages wich are not translated at all
+      -p PATH, --path=PATH  Path to scan for translations (defaults to pwd)
+      -f FORMAT, --format=FORMAT
+                            Formats: json, html
+      -a, --all-languages   Show also languages wich are not translated at all
 
 
 Links
