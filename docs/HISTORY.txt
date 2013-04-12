@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.3 (unreleased)
-----------------
+1.2.1 (2013-04-12)
+------------------
 
 - Fix encoding problem when printing the result.
   [jone]
