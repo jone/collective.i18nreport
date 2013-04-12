@@ -54,5 +54,5 @@ def parse_arguments(argv):
 
 
 def main():
-    print command(**parse_arguments(sys.argv[1:]))
+    print command(**parse_arguments(sys.argv[1:])).encode('utf-8')
     return 0
