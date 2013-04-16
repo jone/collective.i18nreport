@@ -148,10 +148,11 @@ def check_output(cmd):
     """Runs a command and returns the shell output.
     """
 
-    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
-    exitcode = proc.wait()
+    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+    (stdoutdata, stderrdata) = proc.communicate()
 
-    if exitcode != 0:
-        raise subprocess.CalledProcessError(exitcode, cmd)
+    if proc.returncode:
+        raise subprocess.CalledProcessError(proc.returncode, cmd)
 
-    return proc.stdout.read()
+    return stdoutdata

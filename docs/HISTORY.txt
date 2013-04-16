@@ -5,7 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix sub process deadlock: use Popen.communicate instead of
+  Popen.wait in check_output.
+  [cedricmessiant]
 
 
 1.2.1 (2013-04-12)
