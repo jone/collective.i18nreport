@@ -18,7 +18,13 @@ def html_formatter(data):
 
     rows = []
     for lang_code in lang_codes:
-        row = [{'content': languages.get(lang_code, {}).get('name', lang_code),
+        lang_title = languages.get(lang_code, {}).get('name', lang_code)
+        if lang_title:
+            title = '%s (%s)' % (lang_title, lang_code)
+        else:
+            title = lang_code
+
+        row = [{'content': title,
                 'classes': 'bold'}]
 
         for domain in domains:
